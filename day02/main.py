@@ -45,37 +45,37 @@ def score(line: str, p2: bool):
     return sa, sx+6
 
 
-def gen_results_dict():
-    return {
-        "blank": 0,
-        "err": 0,
-        "good": 0,
-        "score": {
-            "ABC": 0,
-            "XYZ": 0
-        }
+r = {
+    "blank": 0,
+    "err": 0,
+    "good": 0,
+    "score1": {
+        "ABC": 0,
+        "XYZ": 0
+    },
+    "score2": {
+        "ABC": 0,
+        "XYZ": 0
     }
+}
 
 
-def rock_paper_scissors(line: str, r: dict, p2: bool):
+def rock_paper_scissors(line: str):
     if not line:
         r["blank"] += 1
         return
-
     try:
-        sa, sx = score(line, p2)
-        r["score"]["ABC"] += sa
-        r["score"]["XYZ"] += sx
+        sa1, sx1 = score(line, False)
+        sa2, sx2 = score(line, True)
         r["good"] += 1
+        r["score1"]["ABC"] += sa1
+        r["score1"]["XYZ"] += sx1
+        r["score2"]["ABC"] += sa2
+        r["score2"]["XYZ"] += sx2
     except AssertionError:
         r["err"] += 1
 
 
 if __name__ == "__main__":
-    res = gen_results_dict()
-    parser(rock_paper_scissors, r=res, p2=False)
-    print(res, f"\nAnswer 1 = {res['score']['XYZ']}")
-
-    res = gen_results_dict()
-    parser(rock_paper_scissors, r=res, p2=True)
-    print(res, f"\nAnswer 2 = {res['score']['XYZ']}")
+    parser(rock_paper_scissors)
+    print(r, f"\nAnswer 1 = {r['score1']['XYZ']}\nAnswer 2 = {r['score2']['XYZ']}")

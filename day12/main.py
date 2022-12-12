@@ -16,6 +16,7 @@ class Point2D:
 @dataclass
 class Puzzle:
     input: list[list[int]]
+    S: Point2D
     starts: list[Point2D]
     end: Point2D
     rows: int = field(default=0)
@@ -32,7 +33,10 @@ moves = {
 
 def height(x: int, c: str, p: Puzzle) -> int:
     if c in ["S", "a"]:
-        p.starts.append(Point2D(x=x, y=p.rows))
+        p0 = Point2D(x=x, y=p.rows)
+        p.starts.append(p0)
+        if c == "S":
+            p.S = p0
         return 0
     if c == "E":
         p.end = Point2D(x=x, y=p.rows)
@@ -67,10 +71,10 @@ def shortest_path(p: Puzzle, start: Point2D):
 
 
 if __name__ == "__main__":
-    puzzle = Puzzle(input=[], starts=[], end=None)
+    puzzle = Puzzle(input=[], starts=[], S=None, end=None)
     parser(read_input, p=puzzle)
 
-    answer, route = shortest_path(puzzle, puzzle.starts[0])
+    answer, route = shortest_path(puzzle, puzzle.S)
     print("Answer 1:", answer, "| Route", route)
 
     answer, route = min([shortest_path(puzzle, start=start) for start in puzzle.starts])

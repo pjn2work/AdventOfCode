@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-from functools import cmp_to_key
-import math
+from functools import cmp_to_key, reduce
 
 
 def parser(method, **kwargs):
@@ -53,4 +52,4 @@ if __name__ == "__main__":
     puzzle.pairs_list += divider_packets
     puzzle.pairs_list.sort(key=cmp_to_key(compare))
     puzzle.answer2 = [i for i, x in enumerate(puzzle.pairs_list, start=1) if x in divider_packets]
-    print("Answer 2:", math.prod(puzzle.answer2), puzzle.answer2)
+    print("Answer 2:", reduce(lambda x, y: x*y, puzzle.answer2), puzzle.answer2)

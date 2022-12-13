@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     print("Answer 1:", sum(puzzle.answer1), puzzle.answer1)
 
-    divider_packets = [[2]], [[6]]
+    divider_packets = [[[2]], [[6]]]
     puzzle.pairs_list += divider_packets
     puzzle.pairs_list.sort(key=cmp_to_key(compare))
     puzzle.answer2 = [i for i, x in enumerate(puzzle.pairs_list, start=1) if x in divider_packets]

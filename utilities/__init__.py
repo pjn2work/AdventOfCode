@@ -102,6 +102,11 @@ class MapRange1D:
             res.subtract(lx, rx)
         return res
 
+    def __invert__(self):
+        res = MapRange1D()
+        res.map_range = self.get_available()
+        return res
+
     def get_occupied(self) -> list[tuple[int, int]]:
         return self.map_range
     

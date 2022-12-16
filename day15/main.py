@@ -1,4 +1,4 @@
-from utilities import MapRange1D
+from utilities import SetRange1D
 from dataclasses import dataclass
 import re
 
@@ -37,7 +37,7 @@ def sensor_span_on_y(sy, sx, r, y: int) -> tuple[int, int]:
 
 
 def answer1(p: Puzzle, y: int) -> int:
-    occupied_in_row = MapRange1D()
+    occupied_in_row = SetRange1D()
     for coord, r in p.sensors:
         if span := sensor_span_on_y(*coord, r, y):
             occupied_in_row.add(*span)

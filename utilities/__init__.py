@@ -25,6 +25,7 @@ class SetRange1D:
         self.set_range: list[tuple[int, int]] = []
         if lx is not None and rx is not None:
             self.add(lx, rx)
+        self._current_index = 0
 
     @staticmethod
     def __assert_other(other):
@@ -120,6 +121,20 @@ class SetRange1D:
 
     def __bool__(self):
         return bool(self.set_range)
+
+    def __eq__(self, other):
+        self.__assert_other(other)
+        return self.get_occupied() == other.get_occupied()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        o = self.get_occupied()
+        if self._current_index < len(o):
+            self._current_index += 1
+            return tuple(o[self._current_index-1])
+        raise StopIteration
 
     def __str__(self):
         return str(self.get_occupied())

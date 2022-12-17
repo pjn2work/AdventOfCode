@@ -21,8 +21,10 @@ def get_intersect_type(lx1: int, rx1: int, lx2: int, rx2: int) -> int:
 
 
 class SetRange1D:
-    def __init__(self):
+    def __init__(self, lx: int = None, rx: int = None):
         self.set_range: list[tuple[int, int]] = []
+        if lx is not None and rx is not None:
+            self.add(lx, rx)
 
     @staticmethod
     def __assert_other(other):
@@ -32,7 +34,7 @@ class SetRange1D:
         idx = 0
         while idx < len(self.set_range)-1:
             (lx1, rx1), (lx2, rx2) = self.set_range[idx], self.set_range[idx + 1]
-            if rx1 >= lx2:
+            if rx1+1 >= lx2:
                 self.set_range[idx] = (lx1, max(rx1, rx2))
                 del self.set_range[idx + 1]
             else:
@@ -82,6 +84,9 @@ class SetRange1D:
         res.set_range = self.set_range.copy()
         return res
 
+    def clear(self):
+        self.set_range.clear()
+
     def __add__(self, other: SetRange1D) -> SetRange1D:
         self.__assert_other(other)
         res = self.copy()
@@ -100,6 +105,27 @@ class SetRange1D:
         res = SetRange1D()
         res.set_range = self.get_available()
         return res
+
+    def __lshift__(self, n: int):
+        for i in range(len(self.set_range)):
+            lx, rx = self.set_range[i]
+            self.set_range[i] = (lx-n, rx-n)
+        return self
+
+    def __rshift__(self, n: int):
+        for i in range(len(self.set_range)):
+            lx, rx = self.set_range[i]
+            self.set_range[i] = (lx+n, rx+n)
+        return self
+
+    def __bool__(self):
+        return bool(self.set_range)
+
+    def __str__(self):
+        return str(self.get_occupied())
+
+    def __repr__(self):
+        return str(self.get_occupied())
 
     def get_occupied(self) -> list[tuple[int, int]]:
         return self.set_range

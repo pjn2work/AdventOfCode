@@ -127,13 +127,15 @@ class SetRange1D:
         return self.get_occupied() == other.get_occupied()
 
     def __iter__(self):
-        return self
+        for o in self.get_occupied():
+            yield o
 
     def __next__(self):
         o = self.get_occupied()
         if self._current_index < len(o):
             self._current_index += 1
-            return tuple(o[self._current_index-1])
+            return o[self._current_index-1]
+        self._current_index = 0
         raise StopIteration
 
     def __str__(self):

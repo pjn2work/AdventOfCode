@@ -22,22 +22,23 @@ def get_intersect_type(lx1: int, rx1: int, lx2: int, rx2: int) -> int:
 
 class SetRange1D:
     def __init__(self, lx: int = None, rx: int = None):
-        self.set_range: list[tuple[int, int]] = []
+        self._set_range: list[tuple[int, int]] = []
         if lx is not None and rx is not None:
             self.add(lx, rx)
         self._current_index = 0
 
     @staticmethod
     def __assert_other(other):
-        assert isinstance(other, SetRange1D), f"other not of type <class MapRange1D> but {type(other)}"
+        if not isinstance(other, SetRange1D):
+            raise TypeError(f"other not of type <class SetRange1D> but {type(other)}")
 
     def __merge_if_overlap(self):
         idx = 0
-        while idx < len(self.set_range) - 1:
-            (lx1, rx1), (lx2, rx2) = self.set_range[idx], self.set_range[idx + 1]
+        while idx < len(self._set_range) - 1:
+            (lx1, rx1), (lx2, rx2) = self._set_range[idx], self._set_range[idx + 1]
             if rx1 + 1 >= lx2:
-                self.set_range[idx] = (lx1, max(rx1, rx2))
-                del self.set_range[idx + 1]
+                self._set_range[idx] = (lx1, max(rx1, rx2))
+                del self._set_range[idx + 1]
             else:
                 idx += 1
 
@@ -82,55 +83,100 @@ class SetRange1D:
 
     def copy(self) -> SetRange1D:
         res = SetRange1D()
-        res.set_range = self.set_range.copy()
+        res._set_range = self._set_range.copy()
         return res
 
-    def clear(self):
-        self.set_range.clear()
+    def clear(self) -> SetRange1D:
+        self._set_range.clear()
+        return self
+
+    def __iadd__(self, other: SetRange1D) -> SetRange1D:
+        if isinstance(other, int):
+            self.add(other, other)
+        elif isinstance(other, (tuple, list)) and len(other) == 2:
+            self.add(other[0], other[1])
+        else:
+            self.__assert_other(other)
+            for lx, rx in other.get_occupied():
+                self.add(lx, rx)
+        return self
+
+    def __isub__(self, other: SetRange1D) -> SetRange1D:
+        if isinstance(other, int):
+            self.sub(other, other)
+        elif isinstance(other, (tuple, list)) and len(other) == 2:
+            self.sub(other[0], other[1])
+        else:
+            self.__assert_other(other)
+            for lx, rx in other.get_occupied():
+                self.sub(lx, rx)
+        return self
 
     def __add__(self, other: SetRange1D) -> SetRange1D:
-        self.__assert_other(other)
-        res = self.copy()
-        for lx, rx in other.get_occupied():
-            res.add(lx, rx)
-        return res
+        return self.copy().__iadd__(other)
 
-    def __sub__(self, other: SetRange1D):
-        self.__assert_other(other)
-        res = self.copy()
-        for lx, rx in other.get_occupied():
-            res.sub(lx, rx)
-        return res
+    def __sub__(self, other: SetRange1D) -> SetRange1D:
+        return self.copy().__isub__(other)
 
-    def __invert__(self):
+    def __invert__(self) -> SetRange1D:
         res = SetRange1D()
-        res.set_range = self.get_available()
+        res._set_range = self.get_available()
         return res
 
-    def __lshift__(self, n: int):
-        for i in range(len(self.set_range)):
-            lx, rx = self.set_range[i]
-            self.set_range[i] = (lx - n, rx - n)
+    def __lshift__(self, n: int) -> SetRange1D:
+        for i in range(len(self._set_range)):
+            lx, rx = self._set_range[i]
+            self._set_range[i] = (lx - n, rx - n)
         return self
 
-    def __rshift__(self, n: int):
-        for i in range(len(self.set_range)):
-            lx, rx = self.set_range[i]
-            self.set_range[i] = (lx + n, rx + n)
+    def __rshift__(self, n: int) -> SetRange1D:
+        for i in range(len(self._set_range)):
+            lx, rx = self._set_range[i]
+            self._set_range[i] = (lx + n, rx + n)
         return self
 
-    def __bool__(self):
-        return bool(self.set_range)
+    def __bool__(self) -> bool:
+        return bool(self._set_range)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         self.__assert_other(other)
         return self.get_occupied() == other.get_occupied()
 
-    def __iter__(self):
+    def __contains__(self, item) -> bool:
+        if isinstance(item, int):
+            for lx, rx in self.get_occupied():
+                if lx <= item <= rx:
+                    return True
+        elif isinstance(item, (list, tuple)) and len(item) == 2:
+            lx2, rx2 = item
+            for lx, rx in self.get_occupied():
+                if lx <= lx2 <= rx2 <= rx:
+                    return True
+        elif isinstance(item, SetRange1D):
+            sr1 = self.get_occupied()
+            l1, i1 = len(sr1), 0
+            if l1 == 0:
+                return False
+
+            lx1, rx1 = sr1[i1]
+            for lx2, rx2 in item.get_occupied():
+                while rx1 < lx2:
+                    i1 += 1
+                    if i1 == l1:
+                        return False
+                    lx1, rx1 = sr1[i1]
+
+                if not lx1 <= lx2 <= rx2 <= rx1:
+                    return False
+            return True
+
+        return False
+
+    def __iter__(self) -> tuple[int, int]:
         for o in self.get_occupied():
             yield o
 
-    def __next__(self):
+    def __next__(self) -> tuple[int, int]:
         o = self.get_occupied()
         if self._current_index < len(o):
             self._current_index += 1
@@ -138,19 +184,19 @@ class SetRange1D:
         self._current_index = 0
         raise StopIteration
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.get_occupied())
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self.get_occupied())
 
     def get_occupied(self) -> list[tuple[int, int]]:
-        return self.set_range
+        return self._set_range
 
     def get_available(self) -> list[tuple[int, int]]:
         res = []
-        if len(self.set_range) > 1:
-            for (_, rx1), (lx2, _) in zip(self.set_range, self.set_range[1:]):
+        if len(self._set_range) > 1:
+            for (_, rx1), (lx2, _) in zip(self._set_range, self._set_range[1:]):
                 res.append((rx1 + 1, lx2 - 1))
         return res
 
@@ -173,15 +219,6 @@ class SetRange1D:
                 else:
                     i2 += 1
         return res
-
-    def is_position_occupied(self, x: int):
-        for lx, rx in self.get_occupied():
-            if lx <= x <= rx:
-                return True
-        return False
-
-    def is_position_available(self, x: int):
-        return not self.is_position_occupied(x)
 
     def get_min_occupied(self) -> int:
         return self.get_occupied()[0][0]

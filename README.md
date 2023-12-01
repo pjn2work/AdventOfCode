@@ -1,4 +1,4 @@
-# AoC2022
-Advant of code 2022
+# Advant of Code
 
-[Site](https://adventofcode.com/2022)
+[AoC 2022](https://adventofcode.com/2022)
+[AoC 2023](https://adventofcode.com/2023)

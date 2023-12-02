@@ -1,9 +1,7 @@
-from functools import reduce
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
-
-mul = lambda x,y: x*y
-def prod(iter):
-   return reduce(mul, iter, 1)
+from utilities import time_duration, prod
 
 
 # Part 1 ----------------------------
@@ -46,6 +44,7 @@ def get_fewest_cubes(draws: list[dict]) -> dict:
 
 # Main ------------------------------
 
+@time_duration(name="Calculate part1 and part2")
 def parser() -> (int, int):
    max_cubes = {"red": 12, "green": 13, "blue": 14}
    valid_games_sum, sum_power_sets = 0, 0

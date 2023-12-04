@@ -22,8 +22,9 @@ def part1() -> int:
 
          win_numbers = set([int(n.group()) for n in num.finditer(_numbers[0])])
          my_numbers = [int(n.group()) for n in num.finditer(_numbers[1])]
-
          wins = sum((1 for n in win_numbers if n in my_numbers))
+
+         # part 1
          if wins:
             p1 += int(math.pow(2, wins-1))
          

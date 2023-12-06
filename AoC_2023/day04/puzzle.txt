@@ -65,3 +65,9 @@ Process all of the original and copied scratchcards until no more scratchcards a
 Your puzzle answer was 5329815.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
+
+part1 took: 0.019666 sec
+part2 took: 0.000403 sec
+Result for p1 = 21105
+Result for p2 = 5329815
+all took: 0.021430 sec

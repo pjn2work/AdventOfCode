@@ -25,7 +25,7 @@ def parse() -> Tuple[List[DRAW], List[DRAW]]:
         else:
             j = 0
 
-        rep = sorted(Counter(cards).values(), reverse=True)    
+        rep = sorted(Counter(cards).values(), reverse=True)
         max_rep = max(rep)
 
         if max_rep + j == 5:
@@ -48,7 +48,7 @@ def parse() -> Tuple[List[DRAW], List[DRAW]]:
             _line = line.strip().split(" ")
 
             _l2n1 = letters_to_nums(_line[0])
-            _l2n2 = [v if v != 11 else 1 for v in _l2n1]
+            _l2n2 = [c if c != 11 else 1 for c in _l2n1]
 
             _rank1 = get_rank(_l2n1, mode2=False)
             _rank2 = get_rank(_l2n1, mode2=True)

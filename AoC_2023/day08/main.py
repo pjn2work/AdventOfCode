@@ -6,14 +6,11 @@ sys.path.append(
 from utilities import time_duration
 
 from typing import Tuple, List, Dict
-from collections import namedtuple
 from itertools import cycle
 import math
 import re
 
 
-Node = namedtuple("Node", ["next", "cost"])
-routes: Dict[str, Dict[str, Node]] = {}
 neighbours: Dict[str, Tuple[str, str]] = {}
 
 
@@ -26,10 +23,6 @@ def parse() -> List[int]:
 
         for line in f:
             grp = node.findall(line.strip())
-            routes[grp[0]] = {
-                grp[1]: Node(grp[1], 1),
-                grp[2]: Node(grp[2], 1)
-            }
             neighbours[grp[0]] = (grp[1], grp[2])
 
     return directions

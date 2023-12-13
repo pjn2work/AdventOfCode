@@ -18,20 +18,12 @@ def parse() -> List[Map]:
             line = line.strip()
             if line:
                 _map.append(line)
-            else:
+            elif _map:
                 maps.append(_map)
                 _map = []
         maps.append(_map)
 
     return maps
-
-
-def show_map(_map: Map):
-    print()
-    print("-"*80)
-    for row in _map:
-        print(row)
-    print("-"*80)
 
 
 def transpose(_map: Map) -> Map:

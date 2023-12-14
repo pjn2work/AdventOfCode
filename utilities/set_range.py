@@ -1,3 +1,4 @@
+from typing import List, Tuple
 from __future__ import annotations
 
 
@@ -22,7 +23,7 @@ def get_intersect_type(lx1: int, rx1: int, lx2: int, rx2: int) -> int:
 
 class SetRange1D:
     def __init__(self, lx: int = None, rx: int = None):
-        self._set_range: list[tuple[int, int]] = []
+        self._set_range: List[Tuple[int, int]] = []
         if lx is not None and rx is not None:
             self.add(lx, rx)
         self._current_index = 0
@@ -172,11 +173,11 @@ class SetRange1D:
 
         return False
 
-    def __iter__(self) -> tuple[int, int]:
+    def __iter__(self) -> Tuple[int, int]:
         for o in self.get_occupied():
             yield o
 
-    def __next__(self) -> tuple[int, int]:
+    def __next__(self) -> Tuple[int, int]:
         o = self.get_occupied()
         if self._current_index < len(o):
             self._current_index += 1
@@ -190,10 +191,10 @@ class SetRange1D:
     def __repr__(self) -> str:
         return str(self.get_occupied())
 
-    def get_occupied(self) -> list[tuple[int, int]]:
+    def get_occupied(self) -> List[Tuple[int, int]]:
         return self._set_range
 
-    def get_available(self) -> list[tuple[int, int]]:
+    def get_available(self) -> List[Tuple[int, int]]:
         res = []
         if len(self._set_range) > 1:
             for (_, rx1), (lx2, _) in zip(self._set_range, self._set_range[1:]):
@@ -226,7 +227,7 @@ class SetRange1D:
     def get_max_occupied(self) -> int:
         return self.get_occupied()[-1][1]
 
-    def get_limits(self) -> tuple[int, int]:
+    def get_limits(self) -> Tuple[int, int]:
         return self.get_min_occupied(), self.get_max_occupied()
 
     def get_total_occupied(self) -> int:

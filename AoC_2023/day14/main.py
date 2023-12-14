@@ -66,7 +66,7 @@ def part2(_map: Map, cycles: int) -> int:
             cycle_pattern_length = cycle - cycle_pattern_started
             cycles_saved_because_pattern = ((cycles - cycle_pattern_started) // cycle_pattern_length) * cycle_pattern_length
             cycles_missing = cycles - cycle_pattern_started-1 - cycles_saved_because_pattern
-            print(f"At {cycle=} repetition pattern was found at {cycle_pattern_started}, with {cycle_pattern_length} spins.\nSaved {cycles_saved_because_pattern:,} cycles, still need to do {cycles_missing} spins to finish.")
+            print(f"At {cycle=} repetition pattern was found at cycle {cycle_pattern_started}, with {cycle_pattern_length} spins.\nSaved {cycles_saved_because_pattern:,} cycles! Still need to do {cycles_missing} spins to finish.")
 
             for _ in range(cycles_missing):
                 _map = spin_and_tilt(_map)

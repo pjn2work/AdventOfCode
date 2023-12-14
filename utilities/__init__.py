@@ -1,4 +1,5 @@
 from utilities.set_range import *
+from utilities.tables import *
 from utilities.time_duration_wrapper import time_duration
 
 from functools import reduce

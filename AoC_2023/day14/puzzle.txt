@@ -106,8 +106,8 @@ Both parts of this puzzle are complete! They provide two gold stars: **
 parse took: 0.000840 sec
 part1 took: 0.018490 sec
 parse took: 0.000363 sec
-At cycle=101 repetition pattern was found at 92, with 9 spins.
-Saved 999,999,900 cycles, still need to do 7 spins to finish.
+At cycle=101 repetition pattern was found at cycle 92, with 9 spins.
+Saved 999,999,900 cycles! Still need to do 7 spins to finish.
 part2 took: 16.478704 sec
 Result for p1 = 107430
 Result for p2 = 96317

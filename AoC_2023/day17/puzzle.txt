@@ -51,8 +51,6 @@ Directing the crucible from the lava pool to the machine parts factory, but not 
 
 Your puzzle answer was 722.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 The crucibles of lava simply aren't large enough to provide an adequate supply of lava to the machine parts factory. Instead, the Elves are going to upgrade to ultra crucibles.
 
@@ -95,13 +93,13 @@ This route causes the ultra crucible to incur the minimum possible heat loss of 
 
 Directing the ultra crucible from the lava pool to the machine parts factory, what is the least heat loss it can incur?
 
-Answer:
+Your puzzle answer was 894.
 
+Both parts of this puzzle are complete! They provide two gold stars: **
 
-
-parse took: 0.001671 sec
-part1 took: 0.363481 sec
-part2 took: 0.545649 sec
+parse took: 0.001925 sec
+part1 took: 0.673382 sec
+part2 took: 2.517292 sec
 Result for p1 = 722
-Result for p2 = 899
-run_all took: 0.911022 sec
+Result for p2 = 894
+run_all took: 3.192774 sec

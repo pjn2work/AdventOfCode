@@ -21,52 +21,35 @@ def parse() -> Data:
 DIRECTION = ((0, 1), (1, 0), (0, -1), (-1, 0))
 
 
-def get_3_directions(direction) -> List[int]:
-    # don't add opposite side (where I came from)
-    return [d for d in range(4) if d == direction or d % 2 != direction % 2]
-
-
-def play(data: Data, min_consecutive: int = 1, max_consecutive: int = 3):
+def play(data: Data, min_consecutive: int, max_consecutive: int) -> int:
     ly, lx = len(data), len(data[0])
     goal = (ly-1, lx-1)
 
     # (acc_heat, (y, x), direction, steps)
     moves = [ (0, (0, 0), 0, 0), (0, (0, 0), 1, 0) ]
-
-    # visited [y][x][direction] having the least heat values
-    visited = [[[-1, -1, -1, -1] for x in range(lx)] for y in range(ly)]
-    for d in range(4):
-        visited[0][0][d] = 0
+    visited = set()
 
     while moves:
-        # get point with less heat
+        # get point_y_x with less heat
         acc_heat, p, direction, steps = heappop(moves)
 
-        if p == goal:
+        if p == goal and steps >= min_consecutive:
             return acc_heat
 
-        for _dir in get_3_directions(direction):
-            _y, _x = p
-            _curr_heat = acc_heat
-            _steps = steps if _dir == direction else 0
+        if (p, direction, steps) not in visited:
+            visited.add((p, direction, steps))
 
-            # only go with this direction if it can do min_consecutive steps without leaving the board bounds
-            __pyx, __dyx, __max_size = (_x, 1, lx) if _dir%2 == 0 else (_y, 0, ly)
-            if 0 <= __pyx + (min_consecutive - _steps) * DIRECTION[_dir][__dyx] < __max_size:
+            y, x = p[0] + DIRECTION[direction][0], p[1] + DIRECTION[direction][1]
+            if 0 <= y < ly and 0 <= x < lx:
+                acc_heat += data[y][x]
+                steps += 1
 
-                for _ in range(_steps, max_consecutive):
-                    _y, _x = _y + DIRECTION[_dir][0], _x + DIRECTION[_dir][1]
-                    if 0 <= _y < ly and 0 <= _x < lx:
-                        _curr_heat += data[_y][_x]
-                        _steps += 1
-                        _v_heat = visited[_y][_x][_dir]
-                        if _v_heat == -1 or _curr_heat < _v_heat:
-                            visited[_y][_x][_dir] = _curr_heat
-                            if _steps >= min_consecutive:
-                                # will sort - have the points with less heat at the beginning
-                                heappush(moves, (_curr_heat, (_y, _x), _dir, _steps))
-                    else:
-                        break
+                if steps >= min_consecutive:
+                    heappush(moves, (acc_heat, (y, x), (direction+1)%4, 0))
+                    heappush(moves, (acc_heat, (y, x), (direction-1)%4, 0))
+
+                if steps < max_consecutive:
+                    heappush(moves, (acc_heat, (y, x), direction, steps))
 
     return -1
 
@@ -75,7 +58,7 @@ def play(data: Data, min_consecutive: int = 1, max_consecutive: int = 3):
 
 @time_duration
 def part1(data: Data) -> int:
-    return play(data)
+    return play(data, 1, 3)
 
 
 # part 2 ----------------

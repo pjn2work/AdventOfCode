@@ -46,11 +46,28 @@ def play(data: Data, show_table: bool = False) -> int:
     return ff.get_total_occupied()
 
 
+def play2(data: Data) -> int:
+    from shapely.geometry.polygon import Polygon
+
+    y, x = 0, 0
+    vertices = []
+    for action in data:
+        dy, dx = DIRECTION[action.dir]
+
+        y += dy * action.n
+        x += dx * action.n
+
+        vertices.append((x, y))
+
+    poly = Polygon(vertices)
+    return int(poly.area + poly.length // 2 + 1)
+
+
 # part 1 ----------------
 
 @time_duration
 def part1(data: Data) -> int:
-    return play(data, show_table=False)
+    return play(data, show_table=True)
 
 
 # part 2 ----------------
@@ -59,7 +76,7 @@ def part1(data: Data) -> int:
 def part2(data: Data) -> int:
     DU = {"0": "R", "1": "D", "2": "L", "3": "U"}
     data = [Action(dir=DU[action.color[-1]], n=int(action.color[:-1], 16), color=action.color) for action in data]
-    return play(data)
+    return play2(data)
 
 
 @time_duration

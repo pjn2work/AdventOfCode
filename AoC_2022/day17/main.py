@@ -88,7 +88,7 @@ def solve(p: Puzzle, total_rocks: int) -> int:
                 if pattern_not_found:
                     # check for new floor
                     for y in range(p.current_rock_bottom_height, p.current_rock_bottom_height + len(rock)):
-                        if p.pit[y].get_occupied() == [(0, 8)]:
+                        if p.pit[y].get_occupied_as_list() == [(0, 8)]:
                             # get block between floors
                             block = tuple(map(tuple, p.pit[last_floor_at:y]))
                             key = (block, rock_id, jet_id)

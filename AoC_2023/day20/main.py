@@ -5,6 +5,7 @@ from utilities import time_duration
 from collections import namedtuple
 from typing import Dict, List, Tuple
 import re
+import math
 
 
 Node = namedtuple("Node", "type nodes state")
@@ -24,6 +25,9 @@ def parse() -> Data:
             nodes = [node.group(0) for node in re.finditer("[a-z]+", nodes)]
             state = [dict()] if node_type == "&" else [False]
 
+            # {'roadcaster': Node(type='b', nodes=['mn', 'jn', 'hd', 'lq'], state=[False])
+            # {'nz': Node(type='%', nodes=['jm', 'ms'], state=[False])
+            # {'zr': Node(type='&', nodes=['rx'], state=[{'gc': False, 'sz': False, 'cm': False, 'xf': False}])
             res[name[1:]] = Node(node_type, nodes, state)
 
             if node_type == "&":
@@ -38,7 +42,8 @@ def parse() -> Data:
     return res
 
 
-def broadcast(data: Data, exec_queue: List[Tuple[str, str, bool]], lows: int = 0, highs: int = 0) -> Tuple[int, int]:
+def broadcast(data: Data, exec_queue: List[Tuple[str, str, bool]], lows: int, highs: int,
+              button_cycle: int = 0, nodes_before_rx: Dict[str, int] = {}) -> Tuple[int, int]:
     while exec_queue:
         name_from, name_dst, input_state = exec_queue.pop(0)
         node = data.get(name_dst)
@@ -62,6 +67,14 @@ def broadcast(data: Data, exec_queue: List[Tuple[str, str, bool]], lows: int = 0
             for name_next in node.nodes:
                 exec_queue.append((name_dst, name_next, output_state))
 
+            # only for part 2
+            if name_dst in nodes_before_rx and nodes_before_rx[name_dst] == 0 and output_state:
+                nodes_before_rx[name_dst] = button_cycle
+
+        elif nodes_before_rx:                   # rx node - only for part 2
+            if all(nodes_before_rx.values()):
+                raise EOFError("all rx parents have been triggered!")
+
     return lows, highs
 
 
@@ -79,14 +92,26 @@ def part1(data: Data) -> int:
 
 @time_duration
 def part2(data: Data) -> int:
-    return 0
+    # get all nodes that are parents of rx parents
+    nodes_before_rx = set([name for name, node in data.items() if "rx" in node.nodes])
+    nodes_before_rx = {name: 0 for name, node in data.items() if set(node.nodes) & nodes_before_rx}
+
+    button_cycle = 0
+    try:
+        while True:
+            button_cycle += 1
+            _ = broadcast(data, [("button", "roadcaster", False)], 0, 0, button_cycle, nodes_before_rx)
+    except EOFError:
+        # return the lcm of all rx parent nodes when have been triggered
+        return math.lcm(*nodes_before_rx.values())
 
 
 @time_duration
 def run_all():
     data = parse()
-
     p1 = part1(data)
+
+    data = parse()
     p2 = part2(data)
 
     print(f"Result for {p1 = }")

@@ -80,8 +80,6 @@ Starting from the garden plot marked S on your map, how many garden plots could 
 
 Your puzzle answer was 3751.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 The Elf seems confused by your answer until he realizes his mistake: he was reading from a list of his favorite numbers that are both perfect squares and perfect cubes, not his step counter.
 
@@ -137,5 +135,17 @@ In exactly 1000 steps, he can reach 668697 garden plots.
 In exactly 5000 steps, he can reach 16733044 garden plots.
 However, the step count the Elf needs is much larger! Starting from the garden plot marked S on your infinite map, how many garden plots could the Elf reach in exactly 26501365 steps?
 
-Answer:
+Your puzzle answer was 619407349431167.
 
+Both parts of this puzzle are complete! They provide two gold stars: **
+
+
+parse took: 0.000179 sec
+part1 took: 0.057684 sec
+At cycle 65 there are 3867 possible positions.
+At cycle 196 there are 34253 possible positions.
+At cycle 327 there are 94909 possible positions.
+part2 took: 19.671776 sec
+Result for p1 = 3751
+Result for p2 = 619407349431167
+run_all took: 19.729748 sec

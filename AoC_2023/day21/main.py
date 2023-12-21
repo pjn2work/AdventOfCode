@@ -4,6 +4,7 @@ from utilities import time_duration
 
 from collections import namedtuple
 from typing import Set, List, Tuple
+import numpy as np
 
 
 Data = List[str]
@@ -23,34 +24,45 @@ def get_start_pos(data: Data) -> Tuple[int, int]:
             return y, row.index("S")
 
 
+def quadratic_fit(points: List[Tuple[int, int]], x: int) -> int:
+    coeff = np.polyfit(*zip(*points), 2)
+    return round(np.polyval(coeff, x))
+
+
 def get_n_pos(data: Data, cycles: int, positions: Set[Point]) -> int:
     ly, lx = len(data), len(data[0])
+    curr_cycle = 0
 
-    cached_cycles = set(tuple(positions))
-    c = 0
-    not_found = True
-    while c < cycles:
-        c += 1
+    # for part 2 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    loop_cycle = ly // 2
+    evolution_pos = []
+    # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-        _pos = set()
+    while curr_cycle < cycles:
+        curr_cycle += 1
+
+        # make all moves for each cycle
+        pos_real = set()
         while positions:
             y, x = positions.pop()
             for mv in MOVES:
-                _ry, _rx = y + mv.y, x + mv.x
-                _y, _x = _ry % ly, _rx % lx
-                if data[_y][_x] != "#":
-                    _pos.add((_y, _x))
-        positions = _pos
+                y_real, x_real = y + mv.y, x + mv.x
+                y_map, x_map = y_real % ly, x_real % lx
+                if data[y_map][x_map] != "#":
+                    pos_real.add((y_real, x_real))
+        positions = pos_real
 
-        if not_found:
-            cp = tuple(sorted(tuple(positions)))
-            if cp in cached_cycles:
-                not_found = False
-                print(f"loop after {c} cycles")
-                c = (cycles // c) * c
-                continue
-            cached_cycles.add(cp)
+        # for part 2 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        if (curr_cycle - loop_cycle) % ly == 0:
+            print(f"At cycle {curr_cycle} there are {len(positions)} possible positions.")
+            evolution_pos.append(len(positions))
+            if len(evolution_pos) == 3:
+                break
+        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    if curr_cycle < cycles:
+        # [(0, 3867), (1, 34253), (2, 94909)]
+        return quadratic_fit([(i, pos) for i, pos in enumerate(evolution_pos)], cycles // ly)
     return len(positions)
 
 

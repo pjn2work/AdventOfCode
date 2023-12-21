@@ -42,3 +42,10 @@ What is the sum of all of the calibration values?
 Your puzzle answer was 55701.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
+
+
+part1 took: 0.001765 sec
+part2 took: 0.008627 sec
+Result for p1 = 56397
+Result for p2 = 55701
+run_all took: 0.010442 sec

@@ -8,3 +8,10 @@ from functools import reduce
 mul = lambda x,y: x*y
 def prod(iter):
    return reduce(mul, iter, 1)
+
+
+def if_exception_return_none(method, *args):
+   try:
+      return method(*args)
+   except Exception:
+      return None

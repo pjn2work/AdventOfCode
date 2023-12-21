@@ -50,3 +50,8 @@ For each game, find the minimum set of cubes that must have been present. What i
 Your puzzle answer was 72596.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
+
+
+Calculate part1 and part2 took: 0.002114 sec
+Result for part1: 2061
+Result for part2: 72596

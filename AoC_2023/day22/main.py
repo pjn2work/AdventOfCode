@@ -3,7 +3,7 @@ sys.path.append("../..")
 from utilities import time_duration
 
 from collections import namedtuple
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 from dataclasses import dataclass
 import re
 
@@ -97,7 +97,7 @@ def parse() -> Puzzle:
 # part 1 & 2 ----------------
 
 @time_duration
-def solve(puzzle: Puzzle) -> int:
+def solve(puzzle: Puzzle) -> Tuple[int, int]:
     # settle puzzle first
     puzzle.settle_bricks(set())
 

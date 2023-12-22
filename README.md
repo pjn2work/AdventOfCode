@@ -3,6 +3,15 @@
 
 ## [AoC 2023](https://adventofcode.com/2023)
 
+#### Day 22 - Sand Slabs
+```
+parse took: 0.007761 sec
+solve took: 8.238818 sec
+Result for p1 = 430
+Result for p2 = 60558
+run_all took: 8.247225 sec
+```
+
 #### Day 21 - Step Counter
 ```
 parse took: 0.000179 sec

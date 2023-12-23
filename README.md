@@ -1,14 +1,16 @@
-# Advant of Code <img src="img.png" width="30" height="30">
+# Advent of Code <img src="img.png" width="30" height="30">
 
 
 ## [AoC 2023](https://adventofcode.com/2023)
 
 #### Day 23 - A Long Walk
 ```
-parse took: 0.000183 sec
-part1 took: 2.825123 sec
+parse took: 0.000170 sec
+part1 took: 2.748781 sec
+part2 took: 50.222966 sec
 Result for p1 = 2230
-run_all took: 2.825871 sec
+Result for p2 = 6542
+run_all took: 52.972998 sec
 ```
 
 #### Day 22 - Sand Slabs

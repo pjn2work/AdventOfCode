@@ -65,8 +65,6 @@ Find the longest hike you can take through the hiking trails listed on your map.
 
 Your puzzle answer was 2230.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 As you reach the trailhead, you realize that the ground isn't as slippery as you expected; you'll have no problem climbing up the steep slopes.
 
@@ -99,10 +97,14 @@ In the example above, this increases the longest hike to 154 steps:
 #####################O#
 Find the longest hike you can take through the surprisingly dry hiking trails listed on your map. How many steps long is the longest hike?
 
-Answer:
+Your puzzle answer was 6542.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
 
 
-parse took: 0.000183 sec
-part1 took: 2.825123 sec
+parse took: 0.000170 sec
+part1 took: 2.748781 sec
+part2 took: 50.222966 sec
 Result for p1 = 2230
-run_all took: 2.825871 sec
+Result for p2 = 6542
+run_all took: 52.972998 sec

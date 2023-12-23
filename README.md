@@ -3,6 +3,14 @@
 
 ## [AoC 2023](https://adventofcode.com/2023)
 
+#### Day 23 - A Long Walk
+```
+parse took: 0.000183 sec
+part1 took: 2.825123 sec
+Result for p1 = 2230
+run_all took: 2.825871 sec
+```
+
 #### Day 22 - Sand Slabs
 ```
 parse took: 0.007761 sec

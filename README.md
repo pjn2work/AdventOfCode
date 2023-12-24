@@ -3,6 +3,14 @@
 
 ## [AoC 2023](https://adventofcode.com/2023)
 
+#### Day 24 - Never Tell Me The Odds
+```
+parse took: 0.002239 sec
+part1 took: 0.034557 sec
+Result for p1 = 13149
+run_all took: 0.036909 sec
+```
+
 #### Day 23 - A Long Walk
 ```
 parse took: 0.000170 sec

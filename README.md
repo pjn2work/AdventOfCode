@@ -3,6 +3,14 @@
 
 ## [AoC 2023](https://adventofcode.com/2023)
 
+#### Day 25 - Snowverload
+```
+parse took: 0.001003 sec
+part1 took: 5.883007 sec
+Result for p1 = 543834
+run_all took: 5.884184 sec
+```
+
 #### Day 24 - Never Tell Me The Odds
 ```
 parse took: 0.002887 sec

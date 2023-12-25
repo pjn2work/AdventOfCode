@@ -6,6 +6,7 @@ from collections import namedtuple
 from dataclasses import dataclass
 from typing import List, Tuple
 import re
+from z3 import Solver, Real
 
 
 Point = namedtuple("Point", "x y z")
@@ -69,7 +70,22 @@ def part1(data: Data, bounds: Tuple[int, int]) -> int:
 
 @time_duration
 def part2(data: Data) -> int:
-    return 0
+    solver = Solver()
+
+    # solution (x, y, z) and (vx, vy, vz)
+    x, y, z = Real("x"), Real("y"), Real("z")
+    vx, vy, vz = Real("vx"), Real("vy"), Real("vz")
+
+    for i, hs in enumerate(data):
+        t = Real(f"t{i}")
+
+        solver.add(x + vx * t == hs.pos.x + hs.vel.x * t)
+        solver.add(y + vy * t == hs.pos.y + hs.vel.y * t)
+        solver.add(z + vz * t == hs.pos.z + hs.vel.z * t)
+
+    solver.check()
+
+    return solver.model().eval(x + y + z)
 
 
 @time_duration
@@ -77,10 +93,10 @@ def run_all():
     data = parse()
 
     p1 = part1(data, (200000000000000, 400000000000000))
-    #p2 = part2(data)
+    p2 = part2(data)
 
     print(f"Result for {p1 = }")
-    #print(f"Result for {p2 = }")
+    print(f"Result for {p2 = }")
 
 
 if __name__ == "__main__":

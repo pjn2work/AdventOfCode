@@ -5,10 +5,12 @@
 
 #### Day 24 - Never Tell Me The Odds
 ```
-parse took: 0.002239 sec
-part1 took: 0.034557 sec
+parse took: 0.002887 sec
+part1 took: 0.053643 sec
+part2 took: 0.399546 sec
 Result for p1 = 13149
-run_all took: 0.036909 sec
+Result for p2 = 1033770143421619
+run_all took: 0.457272 sec
 ```
 
 #### Day 23 - A Long Walk

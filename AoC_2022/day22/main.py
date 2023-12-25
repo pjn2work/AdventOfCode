@@ -41,10 +41,10 @@ def read_input(line: str, p: Puzzle):
                     map[y, x] = e
             p.map = map
 
-            moves = re.findall("(\d+)(\w)", line)
+            moves = re.findall(r"(\d+)(\w)", line)
             for v, d in moves:
                 p.directions.append((int(v), d))
-            p.directions.append((int(re.search(".+(\d+)$", line).group(1)), " "))
+            p.directions.append((int(re.search(r".+(\d+)$", line).group(1)), " "))
 
 
 def walk2d(p: Puzzle, distance, turn):

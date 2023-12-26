@@ -51,8 +51,6 @@ Sort through all of the parts you've been given; what do you get if you add toge
 
 Your puzzle answer was 391132.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 Even with your help, the sorting process still isn't fast enough.
 
@@ -64,5 +62,14 @@ In the above example, there are 167409079868000 distinct combinations of ratings
 
 Consider only your list of workflows; the list of part ratings that the Elves wanted you to sort is no longer relevant. How many distinct combinations of ratings will be accepted by the Elves' workflows?
 
-Answer:
+Your puzzle answer was 128163929109524.
 
+Both parts of this puzzle are complete! They provide two gold stars: **
+
+
+parse took: 0.001481 sec
+part1 took: 0.012168 sec
+part2 took: 0.003809 sec
+Result for p1 = 391132
+Result for p2 = 128163929109524
+run_all took: 0.017586 sec

@@ -46,8 +46,6 @@ Find the three wires you need to disconnect in order to divide the components in
 
 Your puzzle answer was 543834.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 You climb over weather machines, under giant springs, and narrowly avoid a pile of pipes as you find and disconnect the three wires.
 
@@ -61,7 +59,9 @@ Power required is now 49 stars.
 
 Please supply the necessary stars and
 push the button to restart the system.
-You don't have enough stars to restart the system, though. You need 1 more.
+If you like, you can .
+
+Both parts of this puzzle are complete! They provide two gold stars: **
 
 
 parse took: 0.001003 sec

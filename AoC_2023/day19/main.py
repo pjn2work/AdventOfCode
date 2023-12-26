@@ -2,7 +2,7 @@ import sys
 from collections import namedtuple
 
 sys.path.append("../..")
-from utilities import time_duration
+from utilities import time_duration, prod
 
 from typing import Dict, List, Tuple
 import re
@@ -61,19 +61,73 @@ def part1(nr: NodeRules, ad: AllData) -> int:
 
 # part 2 ----------------
 
+RuleDetail = namedtuple("RuleDetail", "var op value next_node")
+Limits = namedtuple("Limits", "low high")
+
+def parse_node_rules(nr: NodeRules) -> Dict[str, List[RuleDetail]]:
+    _rules = dict()
+    for node, rules in nr.items():
+        _rules[node] = []
+        for rule in rules:
+            if ":" in rule:
+                question, next_node = rule.split(":")
+                _rules[node].append(RuleDetail(var=question[0], op=question[1], value=int(question[2:]), next_node=next_node))
+            else:
+                _rules[node].append(rule)
+    # {"px": [('a', '<', 2006, 'qkq'), ('m', '>', 2090, 'A'), 'rfg'], ...}
+    return _rules
+
+
 @time_duration
-def part2(nr: NodeRules, ad: AllData) -> int:
-    print(nr)
-    print(ad)
-    return 0
+def part2(nr: NodeRules) -> int:
+    res = 0
+    flows = parse_node_rules(nr)
+    queue = [("in", 0, {var: Limits(1, 4000) for var in "xmas"})]
+
+    while len(queue) > 0:
+        curr_node, idx, bounds = queue.pop()
+
+        if curr_node == "A":
+            res += prod(bounds[var][1] - bounds[var].low + 1 for var in "xmas")
+            continue
+
+        if curr_node == "R":
+            continue
+
+        step = flows[curr_node][idx]
+
+        if isinstance(step, str):
+            queue.append((step, 0, bounds))
+        elif step.op == "<":
+            true = bounds.copy()
+            false = bounds
+
+            true[step.var] = Limits(true[step.var].low, step.value - 1)
+            false[step.var] = Limits(step.value, false[step.var].high)
+
+            queue.append((step.next_node, 0, true))
+            if idx+1 < len(flows[curr_node]):
+                queue.append((curr_node, idx + 1, false))
+        elif step.op == ">":
+            true = bounds.copy()
+            false = bounds
+
+            true[step.var] = Limits(step.value + 1, true[step.var][1])
+            false[step.var] = Limits(false[step.var][0], step.value)
+
+            queue.append((step.next_node, 0, true))
+            if idx+1 < len(flows[curr_node]):
+                queue.append((curr_node, idx + 1, false))
+
+    return res
 
 
 @time_duration
 def run_all():
-    data = parse()
+    nr, ad = parse()
 
-    p1 = part1(*data)
-    p2 = part2(*data)
+    p1 = part1(nr, ad)
+    p2 = part2(nr)
 
     print(f"Result for {p1 = }")
     print(f"Result for {p2 = }")

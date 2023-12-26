@@ -35,22 +35,12 @@ def part1(data: Data) -> int:
     return len(groups[0]) * len(groups[1])
 
 
-# part 2 ----------------
-
-@time_duration
-def part2(data: Data) -> int:
-    return 0
-
-
 @time_duration
 def run_all():
     data = parse()
 
     p1 = part1(data)
-    #p2 = part2(data)
-
     print(f"Result for {p1 = }")
-    #print(f"Result for {p2 = }")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,20 @@
 # Advent of Code <img src="img.png" width="30" height="30">
 
 
+## [AoC 2024](https://adventofcode.com/2024)
+
+
+#### Day 1 - Historian Hysteria
+```
+parse took: 0.000878 sec
+part1 took: 0.000073 sec
+part2 took: 0.000323 sec
+Result for p1 = 2344935
+Result for p2 = 27647262
+run_all took: 0.001303 sec
+```
+
+
 ## [AoC 2023](https://adventofcode.com/2023)
 
 #### Day 25 - Snowverload

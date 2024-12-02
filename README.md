@@ -4,6 +4,16 @@
 ## [AoC 2024](https://adventofcode.com/2024)
 
 
+#### Day 2 - Red-Nosed Reports
+```
+parse took: 0.001802 sec
+part1 took: 0.000605 sec
+part2 took: 0.003476 sec
+Result for p1 = 246
+Result for p2 = 318
+run_all took: 0.005937 sec
+```
+
 #### Day 1 - Historian Hysteria
 ```
 parse took: 0.000878 sec

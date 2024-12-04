@@ -4,6 +4,17 @@
 ## [AoC 2024](https://adventofcode.com/2024)
 
 
+#### Day 4 - Ceres Search
+```
+parse took: 0.000166 sec
+part1 took: 0.354455 sec
+part2 took: 0.004536 sec
+Result for p1 = 2633
+Result for p2 = 1936
+run_all took: 0.359283 sec
+```
+
+
 #### Day 3 - Mull It Over
 ```
 parse took: 0.000237 sec

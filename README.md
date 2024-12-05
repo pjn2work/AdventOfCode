@@ -4,6 +4,16 @@
 ## [AoC 2024](https://adventofcode.com/2024)
 
 
+#### Day 5 - Print Queue
+```
+parse took: 0.002532 sec
+part1 took: 0.001172 sec
+part2 took: 0.001881 sec
+Result for p1 = 7198
+Result for p2 = 4230
+run_all took: 0.005649 sec
+```
+
 #### Day 4 - Ceres Search
 ```
 parse took: 0.000166 sec
@@ -13,7 +23,6 @@ Result for p1 = 2633
 Result for p2 = 1936
 run_all took: 0.359283 sec
 ```
-
 
 #### Day 3 - Mull It Over
 ```

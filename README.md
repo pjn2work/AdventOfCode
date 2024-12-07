@@ -4,6 +4,26 @@
 ## [AoC 2024](https://adventofcode.com/2024)
 
 
+#### Day 7 - Bridge Repair
+```
+parse took: 0.002140 sec
+part1 took: 0.084683 sec
+part2 took: 8.848452 sec
+Result for p1 = 6231007345478
+Result for p2 = 333027885676693
+run_all took: 8.935494 sec
+```
+
+#### Day 6 - Guard Gallivant
+```
+parse took: 0.000359 sec
+part1 took: 0.003116 sec
+part2 took: 2.186579 sec
+Result for p1 = 5305
+Result for p2 = 2116  # not correct yet
+run_all took: 2.190135 sec
+```
+
 #### Day 5 - Print Queue
 ```
 parse took: 0.002532 sec

@@ -4,6 +4,16 @@
 ## [AoC 2024](https://adventofcode.com/2024)
 
 
+#### Day 8 - Resonant Collinearity
+```
+parse took: 0.000268 sec
+part1 took: 0.000426 sec
+part2 took: 0.000967 sec
+Result for p1 = 291
+Result for p2 = 1015
+run_all took: 0.001707 sec
+```
+
 #### Day 7 - Bridge Repair
 ```
 parse took: 0.002140 sec

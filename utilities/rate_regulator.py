@@ -30,11 +30,34 @@ class RateRegulator:
     else:
       self._next_time = datetime.now() + self._wait_time_sec
 
+  def range(self, max_iterations: int = None):
+    if max_iterations is not None and max_iterations < 0:
+      raise ValueError("max_iterations must be a positive integer or None.")
+
+    counter = 0
+    while max_iterations is None or counter < max_iterations:
+      self.wait_for_next()
+      yield counter
+      counter += 1
+
 
 # Example usage
 if __name__ == "__main__":
   regulator = RateRegulator(rps=10)
   print(f"Executing {regulator.get_max_rpm()} RPM, every {regulator.get_wait_time_sec()}")
-  for i in range(10):
+  
+  for i in range(9):
     regulator.wait_for_next()
     print(f"Action {i} at {datetime.now()}")
+
+  print("-"*40)
+
+  for i in regulator.range(6):
+    print(f"Action {i} at {datetime.now()}")
+
+  print("-" * 40)
+
+  for i in regulator.range():
+    print(f"Action {i} at {datetime.now()}")
+    if i == 2:
+      break

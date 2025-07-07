@@ -9,30 +9,34 @@ class RateRegulator:
       raise ValueError("Either new_rps or new_rpm must be provided.")
 
     self._max_rpm: float = rpm if rpm else rps * 60
-    self._wait_time_sec: timedelta = timedelta(seconds=60 / self._max_rpm)
-    self._next_time: datetime = datetime.now()
+    self._wait_time_ns: float = 60_000_000_000 / self._max_rpm
+    self._next_time: float = time.perf_counter_ns()
 
   def update_rate(self, new_rps: float = None, new_rpm: float = None) -> None:
     if not (new_rps or new_rpm):
       raise ValueError("Either new_rps or new_rpm must be provided.")
 
     self._max_rpm = new_rpm if new_rpm else new_rps * 60
-    self._wait_time_sec = timedelta(seconds=60 / self._max_rpm)
-    self._next_time = datetime.now()
+    self._wait_time_ns = 60_000_000_000 / self._max_rpm
+    self._next_time = time.perf_counter_ns()
 
   def get_max_rpm(self) -> float:
     return self._max_rpm
 
-  def get_wait_time_sec(self) -> timedelta:
-    return self._wait_time_sec
+  def get_max_rps(self) -> float:
+    return self._max_rpm / 60
+
+  def get_wait_time_sec(self) -> float:
+    return self._wait_time_ns / 1_000_000_000
 
   def wait_for_next(self) -> None:
-    sleep_sec = (self._next_time - datetime.now()).total_seconds()
-    if sleep_sec > 0:
-      time.sleep(sleep_sec)
-      self._next_time += self._wait_time_sec
+    _now = time.perf_counter_ns()
+    sleep_ns = self._next_time - _now
+    if sleep_ns > 0:
+      time.sleep(sleep_ns / 1_000_000_000)
+      self._next_time += self._wait_time_ns
     else:
-      self._next_time = datetime.now() + self._wait_time_sec
+      self._next_time = _now + self._wait_time_ns
 
   def range(self, max_iterations: int = None):
     if max_iterations is not None and max_iterations < 0:
@@ -57,6 +61,16 @@ class RateRegulator:
       self.wait_for_next()
       yield counter
       counter += 1
+
+  def __repr__(self) -> str:
+    if self._max_rpm < 60:
+      return f"RateRegulator(rpm={self.get_max_rpm():_.2f})"
+    return f"RateRegulator(rps={self.get_max_rps():_.2f})"
+
+  def __str__(self) -> str:
+    if self._max_rpm < 60:
+      return f"{self.get_max_rpm():_.2f} RPM, every {self.get_wait_time_sec():_.3f} sec"
+    return f"{self.get_max_rps():_.2f} RPS, every {self.get_wait_time_sec()*1000:_.3f} ms"
 
 
 # Example usage
@@ -85,7 +99,9 @@ if __name__ == "__main__":
   for i in regulator.timer(1.5):
     print(f"Action {i} at {datetime.now()}")
 
-  print("timer(timedelta(sec=0.5))".center(40, "-"))
-
-  for i in regulator.timer(timedelta(seconds=0.5)):
-    print(f"Action {i} at {datetime.now()}")
+  regulator.update_rate(new_rps=20_000)
+  print(f"{regulator} for 1.0 sec ".center(80, "-"))
+  _counter = 0
+  for i in regulator.timer(timedelta(seconds=1.0)):
+    _counter += 1
+  print(f"Total executions {_counter:_}, expected: 20_000")

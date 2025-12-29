@@ -3,6 +3,26 @@
 
 ## [AoC 2025](https://adventofcode.com/2025)
 
+#### Day 5 - Cafeteria
+```
+parse took: 0.001159 sec
+part1 took: 0.018972 sec
+part2 took: 0.001674 sec
+Result for p1 = 865
+Result for p2 = 352556672963116
+run_all took: 0.021971 sec
+```
+
+#### Day 4 - Printing Department
+```
+parse took: 0.000613 sec
+part1 took: 0.025021 sec
+part2 took: 0.227524 sec
+Result for p1 = 1587
+Result for p2 = 8946
+run_all took: 0.253320 sec
+```
+
 #### Day 3 - Lobby
 ```
 parse took: 0.002091 sec

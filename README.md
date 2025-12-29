@@ -3,6 +3,16 @@
 
 ## [AoC 2025](https://adventofcode.com/2025)
 
+#### Day 3 - Lobby
+```
+parse took: 0.002091 sec
+part1 took: 0.033999 sec
+part2 took: 0.001821 sec
+Result for p1 = 17403
+Result for p2 = 173416889848394
+run_all took: 0.038056 sec
+```
+
 #### Day 2 - Gift Shop
 ```
 parse took: 0.000066 sec
@@ -25,7 +35,6 @@ run_all took: 0.002950 sec
 
 
 ## [AoC 2024](https://adventofcode.com/2024)
-
 
 #### Day 8 - Resonant Collinearity
 ```

@@ -1,6 +1,29 @@
 # Advent of Code <img src="img.png" width="30" height="30">
 
 
+## [AoC 2025](https://adventofcode.com/2025)
+
+#### Day 2 - Gift Shop
+```
+parse took: 0.000066 sec
+part1 took: 0.403245 sec
+part2 took: 2.225357 sec
+Result for p1 = 19605500130
+Result for p2 = 36862281418
+run_all took: 2.628778 sec
+```
+
+#### Day 1 - Secret Entrance
+```
+parse took: 0.000485 sec
+part1 took: 0.000998 sec
+part2 took: 0.001255 sec
+Result for p1 = 1092
+Result for p2 = 6616
+run_all took: 0.002950 sec
+```
+
+
 ## [AoC 2024](https://adventofcode.com/2024)
 
 

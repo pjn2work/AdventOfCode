@@ -3,6 +3,26 @@
 
 ## [AoC 2025](https://adventofcode.com/2025)
 
+#### Day 7 - Laboratories
+```
+parse took: 0.000527 sec
+part1 took: 0.002483 sec
+part2 took: 0.002642 sec
+Result for p1 = 1587
+Result for p2 = 5748679033029
+run_all took: 0.005797 sec
+```
+
+#### Day 6 - Trash Compactor
+```
+parse took: 0.000085 sec
+part1 took: 0.035144 sec
+part2 took: 0.027646 sec
+Result for p1 = 4805473544166
+Result for p2 = 8907730960817
+run_all took: 0.062988 sec
+```
+
 #### Day 5 - Cafeteria
 ```
 parse took: 0.001159 sec

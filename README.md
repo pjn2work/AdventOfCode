@@ -3,6 +3,26 @@
 
 ## [AoC 2025](https://adventofcode.com/2025)
 
+#### Day 9 - Movie Theater
+```
+parse took: 0.000399 sec
+part1 took: 0.021896 sec
+part2 took: 64.165378 sec
+Result for p1 = 4776100539
+Result for p2 = 1476550548
+run_all took: 64.187914 sec
+```
+
+#### Day 8 - Playground
+```
+parse took: 0.000913 sec
+part1 took: 0.878354 sec
+part2 took: 5.302533 sec
+Result for p1 = 62186
+Result for p2 = 8420405530
+run_all took: 6.181957 sec
+```
+
 #### Day 7 - Laboratories
 ```
 parse took: 0.000527 sec

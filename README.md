@@ -3,6 +3,16 @@
 
 ## [AoC 2025](https://adventofcode.com/2025)
 
+#### Day 10 - Factory
+```
+parse took: 0.000461 sec
+part1 took: 0.000306 sec
+part2 took:  sec
+Result for p1 = 425
+Result for p2 = 
+run_all took:  sec
+```
+
 #### Day 9 - Movie Theater
 ```
 parse took: 0.000399 sec
